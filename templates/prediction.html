@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutiScan - Autism Screening Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f5f7fa;
+            --white: #ffffff;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .aq-scores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .aq-score-item {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #357abd;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .required::after {
+            content: " *";
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>AutiScan</h1>
+        </div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('home') }}#about">About</a>
+            <a href="{{ url_for('home') }}#features">Features</a>
+            <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2 class="form-title">Autism Screening Questionnaire</h2>
+        <form id="screeningForm" action="{{ url_for('predict') }}" method="POST">
+            <div class="form-group">
+                <label class="required">Age</label>
+                <input type="number" name="age" required min="1" max="120">
+            </div>
+
+            <div class="form-group">
+                <label class="required">Gender</label>
+                <select name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="m">Male</option>
+                    <option value="f">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Ethnicity</label>
+                <select name="ethnicity" required>
+                    <option value="">Select Ethnicity</option>
+                    <option value="White-European">White-European</option>
+                    <option value="Latino">Latino</option>
+                    <option value="Asian">Asian</option>
+                    <option value="Black">Black</option>
+                    <option value="Middle Eastern">Middle Eastern</option>
+                    <option value="South Asian">South Asian</option>
+                    <option value="Pasifika">Pasifika</option>
+                    <option value="Hispanic">Hispanic</option>
+                    <option value="Turkish">Turkish</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Jaundice at Birth</label>
+                <select name="jaundice" required>
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Family Member with Autism</label>
+                <select name="autism" required>
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Country of Residence</label>
+                <select name="country_of_res" required>
+                    <option value="">Select Country</option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="India">India</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Canada">Canada</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="Jordan">Jordan</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Used Screening App Before</label>
+                <select name="used_app_before" required>
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <h3>Autism Spectrum Quotient (AQ) Questions</h3>
+            <p>Please answer the following questions (1 = Definitely Agree, 0 = Definitely Disagree):</p>
+            
+            <div class="aq-scores">
+                <div class="aq-score-item">
+                    <label class="required">A1: I prefer to do things with others rather than on my own</label>
+                    <select name="A1_Score" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="aq-score-item">
+                    <label class="required">A2: I prefer to do things the same way over and over again</label>
+                    <select name="A2_Score" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="aq-score-item">
+                    <label class="required">A3: If I try to imagine something, I find it very easy to create a picture in my mind</label>
+                    <select name="A3_Score" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="aq-score-item">
+                    <label class="required">A4: I frequently get so strongly absorbed in one thing that I lose sight of other things</label>
+                    <select name="A4_Score" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="aq-score-item">
+                    <label class="required">A5: I often notice small sounds when others do not</label>
+                    <select name="A5_Score" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="aq-score-item">
+                    <label class="required">A6: I usually notice car number plates or similar strings of information</label>
+                    <select name="A6_Score" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="aq-score-item">
+                    <label class="required">A7: Other people frequently tell me that what I've said is impolite, even though I think it is polite</label>
+                    <select name="A7_Score" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="aq-score-item">
+                    <label class="required">A8: When I'm reading a story, I can easily imagine what the characters might look like</label>
+                    <select name="A8_Score" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="aq-score-item">
+                    <label class="required">A9: I am fascinated by dates</label>
+                    <select name="A9_Score" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="aq-score-item">
+                    <label class="required">A10: In a social group, I can easily keep track of several different people's conversations</label>
+                    <select name="A10_Score" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit for Analysis</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('screeningForm').addEventListener('submit', function(e) {
+            // Calculate AQ-10 score before submission
+            const formData = new FormData(this);
+            let aqScore = 0;
+            
+            // Calculate total AQ score
+            for (let i = 1; i <= 10; i++) {
+                const score = parseInt(formData.get(`A${i}_Score`));
+                if (isNaN(score)) {
+                    alert(`Please answer question A${i}`);
+                    e.preventDefault();
+                    return;
+                }
+                aqScore += score;
+            }
+            
+            // Add the result to the form
+            const resultInput = document.createElement('input');
+            resultInput.type = 'hidden';
+            resultInput.name = 'result';
+            resultInput.value = aqScore;
+            this.appendChild(resultInput);
+            
+            // Add age description
+            const age = parseInt(formData.get('age'));
+            const ageDescInput = document.createElement('input');
+            ageDescInput.type = 'hidden';
+            ageDescInput.name = 'age_desc';
+            ageDescInput.value = age >= 18 ? '18 and more' : 'Less than 18';
+            this.appendChild(ageDescInput);
+            
+            // Form will submit normally to the backend
+        });
+    </script>
+</body>
+</html> 

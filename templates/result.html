@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutiScan - Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+            --text-color: #333;
+            --light-bg: #f5f7fa;
+            --white: #ffffff;
+        }
+
+        .result-container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .result-title {
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+        }
+
+        .result-card {
+            background-color: var(--light-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-icon.positive {
+            color: var(--accent-color);
+        }
+
+        .result-icon.negative {
+            color: var(--success-color);
+        }
+
+        .result-text {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .probability-section {
+            margin: 2rem 0;
+        }
+
+        .probability-bar {
+            width: 100%;
+            height: 30px;
+            background-color: var(--light-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .probability-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            transition: width 1s ease-in-out;
+        }
+
+        .score-section {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .details-section {
+            margin-top: 2rem;
+            text-align: left;
+            padding: 1rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .detail-item {
+            padding: 0.5rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .action-buttons {
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .disclaimer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>AutiScan</h1>
+        </div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('home') }}#about">About</a>
+            <a href="{{ url_for('home') }}#features">Features</a>
+            <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
+        </div>
+    </nav>
+
+    <div class="result-container">
+        <h2 class="result-title">Screening Results</h2>
+        
+        <div class="result-card">
+            <i class="fas {% if prediction %}fa-exclamation-circle positive{% else %}fa-check-circle negative{% endif %} result-icon"></i>
+            
+            <h3 class="result-text">
+                {% if prediction %}
+                Indicators of Autism Spectrum Disorder Detected
+                {% else %}
+                No Significant Indicators Detected
+                {% endif %}
+            </h3>
+            
+            <div class="probability-section">
+                <p>Probability of ASD Traits:</p>
+                <div class="probability-bar">
+                    <div class="probability-fill" style="width: {{ probability }}%"></div>
+                </div>
+                <p>{{ "%.1f"|format(probability) }}%</p>
+            </div>
+
+            <div class="score-section">
+                <h4>AQ-10 Score: {{ score }}/10</h4>
+                <p>
+                    {% if score >= 6 %}
+                    A score of 6 or higher may indicate the presence of ASD traits
+                    {% else %}
+                    A score below 6 suggests fewer ASD-related characteristics
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="details-section">
+                <h4>Assessment Details</h4>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <p class="detail-label">Age:</p>
+                        <p>{{ age }} years</p>
+                    </div>
+                    <div class="detail-item">
+                        <p class="detail-label">Gender:</p>
+                        <p>{{ 'Male' if gender == 'm' else 'Female' }}</p>
+                    </div>
+                    <div class="detail-item">
+                        <p class="detail-label">Ethnicity:</p>
+                        <p>{{ ethnicity }}</p>
+                    </div>
+                    <div class="detail-item">
+                        <p class="detail-label">Country:</p>
+                        <p>{{ country }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{{ url_for('prediction_form') }}" class="btn btn-primary">Take Test Again</a>
+            <a href="{{ url_for('home') }}" class="btn btn-secondary">Return Home</a>
+        </div>
+
+        <p class="disclaimer">
+            <strong>Important:</strong> This screening tool is not a diagnostic instrument. A diagnosis of Autism Spectrum Disorder can only be made by qualified healthcare professionals. Please consult with a healthcare provider for proper evaluation and diagnosis.
+        </p>
+    </div>
+</body>
+</html> 

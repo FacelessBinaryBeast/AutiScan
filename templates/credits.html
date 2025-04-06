@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutiScan - Credits</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .credits-section {
+            padding: var(--section-padding) 5%;
+            background-color: var(--light-bg);
+            min-height: 100vh;
+            margin-top: 60px;
+        }
+
+        .credits-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .credits-header h1 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .credits-header p {
+            color: var(--text-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-image {
+            width: 100%;
+            height: 250px;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .team-image i {
+            font-size: 5rem;
+            color: var(--white);
+        }
+
+        .team-info {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .team-info h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-info .role {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .team-info p {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .back-to-home a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-home a:hover {
+            background-color: #357abd;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>AutiScan</h1>
+        </div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('home') }}#about">About</a>
+            <a href="{{ url_for('home') }}#features">Features</a>
+            <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
+        </div>
+    </nav>
+
+    <section class="credits-section">
+        <div class="credits-header">
+            <h1>Our Team</h1>
+            <p>Meet the dedicated individuals behind AutiScan who are working to make autism screening more accessible.</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="team-info">
+                    <h3>Amit Rajegore</h3>
+                    <div class="role">22104025</div>
+                   
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="team-info">
+                    <h3>Shubham Rane</h3>
+                    <div class="role">22104030</div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="#"><i class="fab fa-behance"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="team-info">
+                    <h3>Parth Talele</h3>
+                    <div class="role">22104134</div>
+                 
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-to-home">
+            <a href="{{ url_for('home') }}">Back to Home</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 AutiScan. All rights reserved.</p>
+    </footer>
+</body>
+</html> 

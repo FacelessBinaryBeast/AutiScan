@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutiScan - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f5f7fa;
+            --white: #ffffff;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--light-bg);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #357abd;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>AutiScan</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="{{ url_for('prediction_form') }}" class="cta-button">Start Screening</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to AutiScan</h1>
+            <p>An advanced autism screening system using machine learning to help identify potential autism spectrum traits.</p>
+            <a href="{{ url_for('prediction_form') }}" class="cta-button">Start Screening Now</a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About AutiScan</h2>
+        <p>AutiScan is a free-to-use platform that utilizes advanced machine learning algorithms to help identify potential autism spectrum traits. Our system is designed to be accessible to everyone, providing valuable insights while maintaining privacy and ease of use.</p>
+    </section>
+
+    <section id="features" class="features">
+        <h2>Key Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <i class="fas fa-brain"></i>
+                <h3>Advanced AI</h3>
+                <p>Powered by Random Forest algorithm for accurate predictions</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Privacy Focused</h3>
+                <p>No login required, your data stays private</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Detailed Analysis</h3>
+                <p>Comprehensive results with detailed explanations</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Free to Use</h3>
+                <p>Accessible to everyone without any cost</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Answer Questions</h3>
+                <p>Complete a simple questionnaire about behavioral patterns</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>AI Analysis</h3>
+                <p>Our system processes your responses using advanced algorithms</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Get Results</h3>
+                <p>Receive detailed analysis and recommendations</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 AutiScan. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="{{ url_for('credits') }}">Meet Our Team</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
