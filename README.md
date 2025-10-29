@@ -15,8 +15,9 @@ AutiScan is a lightweight, privacy-focused autism screening web app that uses a 
 - Troubleshooting
 - License & credits
 
-## Try the Live Web App 🌐:
-autiscan.onrender.com
+## Try the Live Web App 🌐  
+[autiscan.onrender.com](https://autiscan.onrender.com)
+
 
 ## Project overview
 
